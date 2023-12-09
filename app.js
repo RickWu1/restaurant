@@ -14,13 +14,14 @@ app.get('/', (req, res) => {
   res.render( 'index', { restaurant })
 })
 
-app.get('/restaurant', (req, res) => {
-  res.render('index')
-})
+app.get('/', (req, res) => {
+  res.redirect('/restaurant')
+});
 
 app.get('/restaurant/:id', (req, res) => {
-  const id = req.params.id
-  res.send(`read restaurant: ${id}`)
+  const id = Number(req.params.id)
+  const rest = restaurant.find(restaurant => restaurant.id === id )
+  res.render('detail',{ rest })
 })
 
 app.listen(port, () => {
